@@ -5,15 +5,15 @@
 }
 
 :root {
-  --mainColor1: #35a1d3;
-  --mainColor2: #d5833b;
-  --mainColor3: #666666;
+  --mainColor1: #06a6f0;
+  --mainColor2: #eb750e;
+  --mainColor3: #888888;
 }
 
 body {
   width: 100vw;
   height: 100vh;
-  overflow-y: hidden;
+  overflow-x: hidden;
 }
 
 header {
@@ -33,6 +33,7 @@ header h1 {
   font-size: 90px;
   position: absolute;
   color: rgba(210, 210, 210, 0.7);
+  cursor: default;
   animation: titleFade 1s;
 }
 
@@ -43,13 +44,102 @@ header h1 {
 
 nav {
   width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding-block: 15px;
+}
+
+nav a {
+  font-size: 24px;
+  text-decoration: none;
+  color: black;
+}
+
+nav a:hover {
+  color: var(--mainColor1);
+}
+
+@media screen and (max-width: 400px) {
+  nav {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  nav a {
+    font-size: 30px;
+  }
 }
 
 main {
-  width: 100%;
+  width: calc(100% - 20px);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  padding: 10px
+}
+
+article {
+  aspect-ratio: 2 / 1;
+  background-color: rgb(220, 220, 220);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  position: relative;
+}
+
+article img {
+  aspect-ratio: 1;
+  height: 100%;
+  object-fit: cover;
+}
+
+article div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  overflow-y: scroll;
+}
+
+article h2 {
+  color: var(--mainColor2);
+  font-size: 30px;
+}
+
+article p {
+ margin-top: 15px;
+ padding-bottom: 40px;
+}
+
+article a {
+  text-decoration: none;
+  color: var(--mainColor1);
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: var(--mainColor2);
+  padding: 5px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 550px) {
+  main {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  article {
+    flex-direction: column;
+    aspect-ratio: 1 / 2;
+  }
+  article img {
+    width: 100%;
+    height: auto;
+  }
 }
 
 footer {
   width: 100%;
   background-color: var(--mainColor3);
+  color: var(--mainColor2);
 }
