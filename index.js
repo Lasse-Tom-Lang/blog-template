@@ -16,3 +16,7 @@ app.get("/style.css", (req, res) => {
 app.get("/images/titleImage.png", (req, res) => {
   res.sendFile(__dirname + "/client/images/titleImage.png")
 })
+
+app.get("/article", (req, res) => {
+  res.sendFile(__dirname + "/client/article.html")
+})

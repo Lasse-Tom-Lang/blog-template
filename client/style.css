@@ -199,8 +199,47 @@ article a {
   }
 }
 
-footer {
+#article p {
+  margin: 10px 20px;
+}
+#article p:first-of-type {
+  margin-top: 30px;
+}
+
+#imageGalerie {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  aspect-ratio: 16/9;
+  width: calc(100vw - 100px);
+  margin: 50px;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+#imageGalerie img {
+  object-fit: cover;
   width: 100%;
-  background-color: var(--mainColor3);
-  color: var(--mainColor2);
+  height: 100%;
+}
+
+#imageGalerie div {
+  display: grid;
+  height: 100%;
+}
+
+#imageGalerie div:first-of-type {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+@media screen and (max-width: 450px) {
+  #imageGalerie {
+    grid-template-columns: 1fr;
+    aspect-ratio: auto;
+    width: calc(100vw - 20px);
+    margin: 10px;
+  }
+  #imageGalerie div:first-of-type {
+    grid-template-columns: 1fr;
+  }
 }
