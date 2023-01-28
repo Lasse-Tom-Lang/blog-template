@@ -9,7 +9,7 @@ interface post {
 
 let posts: post[]
 
-fetch("/newestPosts?count=3")
+fetch("/getNewestPosts?count=3")
   .then(data => data.json())
   .then(data => {
     if (data.length) {
@@ -25,7 +25,7 @@ fetch("/newestPosts?count=3")
             <p>
               ${post.text}
             </p>
-            <a href="/article">
+            <a href="/article/${post.id}">
               Show post
             </a>
           </div>

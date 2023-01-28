@@ -20,7 +20,7 @@ app.get("/images/titleImage.png", (req, res) => {
   res.sendFile(__dirname + "/client/images/titleImage.png")
 })
 
-app.get("/article", (req, res) => {
+app.get("/article/:id", (req, res) => {
   res.sendFile(__dirname + "/client/article.html")
 })
 
@@ -28,10 +28,11 @@ app.get("/getNewestPosts.js", (req, res) => {
   res.sendFile(__dirname + "/client/getNewestPosts.js")
 })
 
-// c99865fb-b5a8-422a-bace-89f2f6cae430
-// da4b890c-9aa5-4959-87f7-43486cf6bbe5
+app.get("/getArticle.js", (req, res) => {
+  res.sendFile(__dirname + "/client/getArticle.js")
+})
 
-app.get("/posts/:postID", async (req, res) => {
+app.get("/getPost/:postID", async (req, res) => {
   const postID = req.params.postID as string
   const post = await prisma.post.findUnique({
     where: {
@@ -42,7 +43,7 @@ app.get("/posts/:postID", async (req, res) => {
   res.end()
 })
 
-app.get("/newestPosts", async (req, res) => {
+app.get("/getNewestPosts", async (req, res) => {
   const count = Number(req.query.count)
   if (count) {
     const posts = await prisma.post.findMany({
