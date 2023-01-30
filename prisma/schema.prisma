@@ -13,6 +13,6 @@ datasource db {
 model post {
   id String @id @default(uuid())
   title String
-  text String
+  text String @db.LongText
   lastChange DateTime @updatedAt @default(now())
 }
