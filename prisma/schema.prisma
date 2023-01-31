@@ -16,3 +16,10 @@ model post {
   text String @db.LongText
   lastChange DateTime @updatedAt @default(now())
 }
+
+model User {
+  id String @id @default(uuid())
+  name String @unique
+  password String
+  role String
+}
