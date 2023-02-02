@@ -50,6 +50,14 @@ app.get("/getArticle.js", (req, res) => {
   res.sendFile(__dirname + "/client/getArticle.js")
 })
 
+app.get("/login", (req, res) => {
+  res.sendFile(__dirname + "/client/login.html")
+})
+
+app.get("/login.js", (req, res) => {
+  res.sendFile(__dirname + "/client/login.js")
+})
+
 app.get("/getPost/:postID", async (req, res) => {
   const postID = req.params.postID as string
   const post = await prisma.post.findUnique({
@@ -78,7 +86,7 @@ app.get("/getNewestPosts", async (req, res) => {
   res.end()
 })
 
-app.get("/login", async (req, res) => {
+app.get("/loginCheck", async (req, res) => {
   const userName = req.query.userName as string
 
   if (!userName || !req.query.password) {
