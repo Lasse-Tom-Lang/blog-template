@@ -11,14 +11,7 @@
   scroll-behavior: smooth;
 }
 
-body {
-  width: 100vw;
-  height: 100vh;
-  overflow-x: hidden;
-}
-
 header {
-  width: 100%;
   position: relative;
   display: grid;
   place-items: center;
@@ -33,8 +26,7 @@ header {
 header h1 {
   font-size: 90px;
   position: absolute;
-  color: rgba(210, 210, 210, 0.7);
-  cursor: default;
+  color: white;
   animation: titleFade 1s;
 }
 
@@ -44,7 +36,6 @@ header h1 {
 }
 
 nav {
-  width: 100%;
   display: flex;
   justify-content: space-around;
   padding-block: 15px;
@@ -72,20 +63,14 @@ nav a:hover {
   }
 }
 
-main {
-  width: 100%;
-}
-
 section {
-  width: calc(100% - 20px);
   padding: 10px;
   position: relative;
 }
 
 section:first-of-type {
-  width: calc(100% - 20px);
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr 1fr;
   gap: 15px;
   padding: 10px;
   position: relative;
@@ -265,6 +250,14 @@ article a {
   border: 0;
   outline: 0;
   padding: 10px;
+}
+
+#login :is(h1, p) {
+  margin-block: 30px;
+}
+
+#login p {
+  color: red;
 }
 
 #login input:first-of-type {

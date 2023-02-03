@@ -1,7 +1,13 @@
 import express from 'express';
-const app = express()
 import sessions from 'express-session';
+import { PrismaClient } from '@prisma/client';
+import { createHash } from 'crypto';
+import figlet from 'figlet';
+import gradient from "gradient-string";
+
+const prisma = new PrismaClient()
 const oneDay = 86400000
+const app = express()
 
 declare module 'express-session' {
   interface SessionData {
@@ -10,21 +16,17 @@ declare module 'express-session' {
   }
 }
 
+app.listen(80, () => {
+  console.log(gradient.rainbow.multiline(figlet.textSync('Server started'), { interpolation: 'hsv' }));
+  console.log("Listening on port 80");
+})
+
 app.use(sessions({
   secret: ".f2.97rrh34?r318b24!82rb",
   saveUninitialized: true,
   cookie: { maxAge: oneDay },
   resave: false
 }));
-
-const crypto = require("crypto")
-
-import { PrismaClient } from '@prisma/client'
-const prisma = new PrismaClient()
-
-app.listen(80, () => {
-  console.log("Server started on port 80")
-})
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/client/index.html")
@@ -56,6 +58,15 @@ app.get("/login", (req, res) => {
 
 app.get("/login.js", (req, res) => {
   res.sendFile(__dirname + "/client/login.js")
+})
+
+app.get("/dashboard", (req, res) => {
+  if (req.session.role == "admin") {
+    res.sendFile(__dirname + "/client/dashboard.html")
+  }
+  else {
+    res.redirect("/login")
+  }
 })
 
 app.get("/getPost/:postID", async (req, res) => {
@@ -94,15 +105,14 @@ app.get("/loginCheck", async (req, res) => {
     res.end()
     return
   }
-
-  const password = crypto.createHash('sha256').update(req.query.password).digest('base64') as string
+  let password = req.query.password as string
+  password = createHash('sha256').update(password).digest('base64') as string
   const user = await prisma.user.findFirst({
     where: {
       name: userName,
       password: password
     },
     select: {
-      name: true,
       id: true,
       role: true
     }
