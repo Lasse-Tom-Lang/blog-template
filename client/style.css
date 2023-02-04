@@ -31,8 +31,15 @@ header h1 {
 }
 
 @keyframes titleFade {
-  from {translate: -100%;opacity: .2;}
-  to {translate: 0%;opacity: 1;}
+  from {
+    translate: -100%;
+    opacity: .2;
+  }
+
+  to {
+    translate: 0%;
+    opacity: 1;
+  }
 }
 
 nav {
@@ -116,8 +123,8 @@ article h3 {
 }
 
 article p {
- margin-top: 15px;
- padding-bottom: 40px;
+  margin-top: 15px;
+  padding-bottom: 40px;
 }
 
 article a {
@@ -136,10 +143,12 @@ article a {
   section:first-of-type {
     grid-template-columns: repeat(1, 1fr);
   }
+
   article {
     flex-direction: column;
     aspect-ratio: 1 / 2;
   }
+
   article img {
     width: 100%;
     height: auto;
@@ -187,6 +196,7 @@ article a {
 #article p {
   margin: 10px 20px;
 }
+
 #article p:first-of-type {
   margin-top: 30px;
 }
@@ -224,6 +234,7 @@ article a {
     width: calc(100vw - 20px);
     margin: 10px;
   }
+
   #imageGalerie div:first-of-type {
     grid-template-columns: 1fr;
   }
@@ -275,4 +286,29 @@ article a {
 
 #login input[type="submit"]:hover {
   background-color: #888888;
+}
+
+#dashboardTitle {
+  margin: 15px;
+}
+
+#postList {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #ddd;
+}
+
+#postList div {
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#postList div:nth-of-type(2n) {
+  background-color: #eee;
+}
+
+#postList div span {
+  width: 30%;
 }

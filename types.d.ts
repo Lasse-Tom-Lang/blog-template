@@ -1,5 +1,5 @@
 interface post {
-  lastChange: Date
+  lastChange: string
   title: string
   text: string
   id: string
@@ -13,3 +13,9 @@ interface user {
 }
 
 type role = "admin" | "user"
+
+interface dashboardData {
+  status: 1 | 0
+  user: user
+  posts: post[]
+}

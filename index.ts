@@ -69,6 +69,10 @@ app.get("/dashboard", (req, res) => {
   }
 })
 
+app.get("/dashboard.js", (req, res) => {
+  res.sendFile(__dirname + "/client/dashboard.js")
+})
+
 app.get("/getPost/:postID", async (req, res) => {
   const postID = req.params.postID as string
   const post = await prisma.post.findUnique({
@@ -125,5 +129,31 @@ app.get("/loginCheck", async (req, res) => {
   req.session.userID = user.id
   req.session.role = user.role as role
   res.json({status: 1, user})
+  res.end()
+})
+
+app.get("/getDashboardData", async (req, res) => {
+  if (req.session.role != "admin") {
+    res.json({status: 0})
+    res.end()
+    return
+  }
+  let user = await prisma.user.findUnique({
+    where: {
+      id: req.session.userID
+    },
+    select: {
+      name: true,
+      id: true,
+      role: true
+    }
+  })
+  let posts = await prisma.post.findMany({
+    orderBy: {
+      lastChange: "desc"
+    },
+    take: 20
+  })
+  res.json({status: 1, user, posts})
   res.end()
 })
