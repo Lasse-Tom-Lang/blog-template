@@ -312,3 +312,22 @@ article a {
 #postList div span {
   width: 30%;
 }
+
+.comment {
+  padding: 10px;
+  margin: 5px;
+  border-radius: 10px;
+  background: rgba(210, 210, 210, 0.6);
+}
+
+.comment a {
+  margin: 5px;
+}
+
+.comment p {
+  margin-block: 10px;
+}
+
+#comments h2 {
+  margin-bottom: 10px;
+}

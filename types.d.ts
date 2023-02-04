@@ -3,6 +3,17 @@ interface post {
   title: string
   text: string
   id: string
+  comments: comment[]
+}
+
+interface comment {
+  id: string,
+  text: string,
+  author: {
+    name: string
+  },
+  answerToID: string,
+  lastChange: string
 }
 
 interface user {

@@ -78,6 +78,28 @@ app.get("/getPost/:postID", async (req, res) => {
   const post = await prisma.post.findUnique({
     where: {
       id: postID
+    },
+    select: {
+      lastChange: true,
+      title: true,
+      text: true,
+      id: true,
+      comments: {
+        select: {
+          id: true,
+          text: true,
+          author: {
+            select: {
+              name: true
+            }
+          },
+          answerToID: true,
+          lastChange: true
+        },
+        orderBy: {
+          lastChange: "desc"
+        }
+      }
     }
   })
   res.json(post)

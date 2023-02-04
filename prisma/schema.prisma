@@ -12,6 +12,7 @@ model post {
   title String
   text String @db.LongText
   lastChange DateTime @updatedAt @default(now())
+  comments Comment[]
 }
 
 model User {
@@ -19,4 +20,18 @@ model User {
   name String @unique
   password String
   role String
+  commets Comment[]
+}
+
+model Comment {
+  id String @id @default(uuid())
+  text String
+  author User @relation(fields: [authorID], references: [id])
+  authorID String
+  answers Comment[] @relation(name: "answer")
+  answerTo Comment? @relation(name: "answer", fields: [answerToID], references: [id])
+  answerToID String?
+  post post @relation(fields: [postID], references: [id])
+  postID String
+  lastChange DateTime @default(now())
 }
