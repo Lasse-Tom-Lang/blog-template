@@ -60,6 +60,10 @@ app.get("/login.js", (req, res) => {
   res.sendFile(__dirname + "/client/login.js")
 })
 
+app.get("/logintracker.js", (req, res) => {
+  res.sendFile(__dirname + "/client/logintracker.js")
+})
+
 app.get("/dashboard", (req, res) => {
   if (req.session.role == "admin") {
     res.sendFile(__dirname + "/client/dashboard.html")
@@ -177,5 +181,19 @@ app.get("/getDashboardData", async (req, res) => {
     take: 20
   })
   res.json({status: 1, user, posts})
+  res.end()
+})
+
+app.get("/loggedIn", async (req, res) => {
+  if (!req.session.userID) {
+    res.json({status: 0})
+    res.end()
+  }
+  let user = await prisma.user.findFirst({
+    where: {
+      id: req.session.userID
+    }
+  })
+  res.json({status: 1, name: user!.name, id: user!.id})
   res.end()
 })

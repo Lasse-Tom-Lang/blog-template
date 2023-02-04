@@ -331,3 +331,18 @@ article a {
 #comments h2 {
   margin-bottom: 10px;
 }
+
+#logintracker {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 100;
+  background-color: white;
+  padding: 10px;
+  border-bottom-left-radius: 15px;
+}
+
+#logintracker a {
+  text-decoration: none;
+  color: black;
+}
