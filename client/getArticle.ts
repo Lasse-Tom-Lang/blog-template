@@ -6,6 +6,19 @@ const postURL = window.location.pathname
 const postID = postURL.split("/")[postURL.split("/").length - 1]
 let post: post
 
+function addComment(comment:comment, parent:HTMLElement) {
+  let newComment = document.createElement("div")
+  newComment.classList.add("comment")
+  newComment.setAttribute("data-commentID", comment.id)
+  newComment.innerHTML += `
+    <a>${comment.author.name}</a>
+    <p>
+      ${comment.text}
+    </p>
+  `
+  parent.appendChild(newComment)
+}
+
 fetch(`/getPost/${postID}`)
   .then(data => data.json())
   .then(data => {
@@ -19,27 +32,12 @@ fetch(`/getPost/${postID}`)
       return c.getTime() - d.getTime();
     });
     post.comments.forEach(comment => {
-      console.log(comment)
       if (!comment.answerToID) {
-        comments.innerHTML += `
-          <div class="comment" data-commentID=${comment.id}>
-            <a>${comment.author.name}</a>
-            <p>
-              ${comment.text}
-            </p>
-          </div>
-        `
+        addComment(comment, comments)
       }
       else {
-        let selectedComment = document.querySelector(`[data-commentID="${comment.answerToID}"]`)
-        selectedComment!.innerHTML += `
-          <div class="comment" data-commentID=${comment.id}>
-            <a>${comment.author.name}</a>
-            <p>
-              ${comment.text}
-            </p>
-          </div>
-        `
+        let selectedComment = document.querySelector(`[data-commentID="${comment.answerToID}"]`) as HTMLElement
+        addComment(comment, selectedComment)
       }
     })
   })

@@ -64,9 +64,16 @@ app.get("/logintracker.js", (req, res) => {
   res.sendFile(__dirname + "/client/logintracker.js")
 })
 
+app.get("/comment.js", (req, res) => {
+  res.sendFile(__dirname + "/client/comment.js")
+})
+
 app.get("/dashboard", (req, res) => {
   if (req.session.role == "admin") {
     res.sendFile(__dirname + "/client/dashboard.html")
+  }
+  else if (req.session.role == "user") {
+    res.redirect("/")
   }
   else {
     res.redirect("/login")
@@ -188,12 +195,43 @@ app.get("/loggedIn", async (req, res) => {
   if (!req.session.userID) {
     res.json({status: 0})
     res.end()
+    return
   }
   let user = await prisma.user.findFirst({
     where: {
       id: req.session.userID
     }
   })
-  res.json({status: 1, name: user!.name, id: user!.id})
+  if (!user) {
+    res.json({status: 0})
+    res.end()
+    return
+  }
+  res.json({status: 1, name: user.name, id: user.id})
+  res.end()
+})
+
+app.get("/logout", (req, res) => {
+  req.session.userID = undefined
+  req.session.role = undefined
+  res.end()
+})
+
+app.get("/addComment", async (req, res) => {
+  if (!req.session.userID || !req.query.commentText || !req.query.postID) {
+    res.json({status: 0})
+    res.end()
+    return
+  }
+  const commentText = req.query.commentText as string
+  const postID = req.query.postID as string
+  const comment = await prisma.comment.create({
+    data: {
+      text: commentText,
+      authorID: req.session.userID,
+      postID: postID
+    }
+  })
+  res.json({status: 1, id: comment.id})
   res.end()
 })

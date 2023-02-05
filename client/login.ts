@@ -19,5 +19,8 @@ form.addEventListener("submit", (event) => {
       if (data.user.role == "admin") {
         location.href = "/dashboard"
       }
+      else {
+        location.href = "/"
+      }
     })
 })

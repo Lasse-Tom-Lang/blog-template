@@ -346,3 +346,25 @@ article a {
   text-decoration: none;
   color: black;
 }
+
+#comments input {
+  padding: 10px;
+  border: 0;
+  outline: 0;
+  border-radius: 5px;
+  background-color: #eee;
+  margin-left: 5px;
+}
+
+#commentForm input[type="text"] {
+  width: calc(100vw - 110px);
+}
+
+#commentForm input[type="submit"] {
+  cursor: pointer;
+  width: 50px;
+}
+
+#commentForm input[type="submit"]:hover {
+  background-color: #ddd;
+}
