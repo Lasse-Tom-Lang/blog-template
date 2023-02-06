@@ -10,12 +10,21 @@ function addComment(comment:comment, parent:HTMLElement) {
   let newComment = document.createElement("div")
   newComment.classList.add("comment")
   newComment.setAttribute("data-commentID", comment.id)
+  let form = document.createElement("form")
+  form.addEventListener("submit", sendComment)
+  form.classList.add("commentForm")
+  form.setAttribute("data-answerToID", comment.id)
+  form.innerHTML = `
+    <input type="text" placeholder="Answer">
+    <input type="submit" value="Send">
+  `
   newComment.innerHTML += `
     <a>${comment.author.name}</a>
     <p>
       ${comment.text}
     </p>
   `
+  newComment.appendChild(form)
   parent.appendChild(newComment)
 }
 

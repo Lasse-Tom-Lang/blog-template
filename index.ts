@@ -225,11 +225,13 @@ app.get("/addComment", async (req, res) => {
   }
   const commentText = req.query.commentText as string
   const postID = req.query.postID as string
+  const answerToID = req.query.answerToID as string | undefined
   const comment = await prisma.comment.create({
     data: {
       text: commentText,
       authorID: req.session.userID,
-      postID: postID
+      postID: postID,
+      answerToID: answerToID
     }
   })
   res.json({status: 1, id: comment.id})

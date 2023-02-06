@@ -1,10 +1,12 @@
-const sendForm = document.getElementById("commentForm") as HTMLFormElement
-const commentText = document.querySelector("#commentForm input[type='text']") as HTMLInputElement
+const sendForm = document.getElementsByClassName("commentForm") as HTMLCollectionOf<HTMLFormElement>
 
-sendForm.addEventListener("submit", (event) => {
+function sendComment(event:Event) {
+  const target = event.target as HTMLFormElement
+  const commentText = target.querySelector("input[type='text']") as HTMLInputElement
   event.preventDefault()
   if (commentText.value.trim() != "") {
-    fetch(`/addComment?commentText=${commentText.value}&postID=${postID}`)
+    let answerToID = target.getAttribute("data-answerToID")
+    fetch(`/addComment?commentText=${commentText.value}&postID=${postID}${answerToID?"&answerToID=" + answerToID:""}`)
       .then(data => data.json())
       .then(data => {
         if (data.status == 1) {
@@ -16,9 +18,11 @@ sendForm.addEventListener("submit", (event) => {
             },
             answerToID: "",
             lastChange: ""
-          }, comments)
+          }, target)
           commentText.value = ""
         }
       })
   }
-})
+}
+
+sendForm[0].addEventListener("submit", sendComment)
