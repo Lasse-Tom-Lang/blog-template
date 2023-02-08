@@ -35,3 +35,11 @@ model Comment {
   postID String
   lastChange DateTime @default(now())
 }
+
+model BlogData {
+  id String @id @default(uuid())
+  title String
+  coverImage String
+  aboutTitle String
+  aboutMe String @db.LongText
+}

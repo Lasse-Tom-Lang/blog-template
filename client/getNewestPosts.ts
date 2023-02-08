@@ -5,7 +5,7 @@ let posts: post[]
 const url = window.location.pathname
 const id = url.split("/")[url.split("/").length - 1]
 
-fetch("/getNewestPosts?count=3")
+fetch("/getNewestPosts?count=4")
   .then(data => data.json())
   .then(data => {
     if (data.length) {

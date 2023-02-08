@@ -68,9 +68,13 @@ app.get("/comment.js", (req, res) => {
   res.sendFile(__dirname + "/client/comment.js")
 })
 
+app.get("/loadBlogData.js", (req, res) => {
+  res.sendFile(__dirname + "/client/loadBlogData.js")
+})
+
 app.get("/dashboard", (req, res) => {
   if (req.session.role == "admin") {
-    res.sendFile(__dirname + "/client/dashboard.html")
+    res.sendFile(__dirname + "/client/dashboard/dashboard.html")
   }
   else if (req.session.role == "user") {
     res.redirect("/")
@@ -80,8 +84,8 @@ app.get("/dashboard", (req, res) => {
   }
 })
 
-app.get("/dashboard.js", (req, res) => {
-  res.sendFile(__dirname + "/client/dashboard.js")
+app.get("/dashboard/dashboard.js", (req, res) => {
+  res.sendFile(__dirname + "/client/dashboard/dashboard.js")
 })
 
 app.get("/getPost/:postID", async (req, res) => {
@@ -235,5 +239,11 @@ app.get("/addComment", async (req, res) => {
     }
   })
   res.json({status: 1, id: comment.id})
+  res.end()
+})
+
+app.get("/getBlogData", async (req, res) => {
+  const blogData = await prisma.blogData.findFirst({})
+  res.json(blogData)
   res.end()
 })

@@ -30,3 +30,11 @@ interface dashboardData {
   user: user
   posts: post[]
 }
+
+interface blogData {
+  id: string
+  title: string
+  coverImage: string
+  aboutTitle: string
+  aboutMe: string
+}
