@@ -16,6 +16,18 @@ declare module 'express-session' {
   }
 }
 
+function checkDashboard(req: any, res: any, file: string) {
+  if (req.session.role != "admin" && req.session.role != "user") {
+    res.redirect("/login")
+    return
+  }
+  else if (req.session.role == "user") {
+    res.redirect("/")
+    return
+  }
+  res.sendFile(__dirname + file)
+}
+
 app.listen(80, () => {
   console.log(gradient.rainbow.multiline(figlet.textSync('Server started'), { interpolation: 'hsv' }));
   console.log("Listening on port 80");
@@ -72,20 +84,28 @@ app.get("/loadBlogData.js", (req, res) => {
   res.sendFile(__dirname + "/client/loadBlogData.js")
 })
 
+app.get("/dashboard/posts/newPost.js", (req, res) => {
+  res.sendFile(__dirname + "/client/dashboard/posts/newPost.js")
+})
+
+app.get("/dashboard/posts/postInfo.js", (req, res) => {
+  res.sendFile(__dirname + "/client/dashboard/posts/postInfo.js")
+})
+
 app.get("/dashboard", (req, res) => {
-  if (req.session.role == "admin") {
-    res.sendFile(__dirname + "/client/dashboard/dashboard.html")
-  }
-  else if (req.session.role == "user") {
-    res.redirect("/")
-  }
-  else {
-    res.redirect("/login")
-  }
+  checkDashboard(req, res, "/client/dashboard/dashboard.html")
 })
 
 app.get("/dashboard/dashboard.js", (req, res) => {
   res.sendFile(__dirname + "/client/dashboard/dashboard.js")
+})
+
+app.get("/dashboard/posts/newPost", (req, res) => {
+  checkDashboard(req, res, "/client/dashboard/posts/newPost.html")
+})
+
+app.get("/dashboard/posts/:postID", (req, res) => {
+  checkDashboard(req, res, "/client/dashboard/posts/postInfo.html")
 })
 
 app.get("/getPost/:postID", async (req, res) => {
@@ -218,6 +238,7 @@ app.get("/loggedIn", async (req, res) => {
 app.get("/logout", (req, res) => {
   req.session.userID = undefined
   req.session.role = undefined
+  res.redirect("/")
   res.end()
 })
 
