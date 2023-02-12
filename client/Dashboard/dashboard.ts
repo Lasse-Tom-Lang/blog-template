@@ -15,7 +15,7 @@ fetch("/getDashboardData")
       let date = new Date(post.lastChange)
       postList.innerHTML += `
         <div>
-          <span>${post.title}</span>
+          <span><a href="/dashboard/posts/${post.id}">${post.title}</a></span>
           <span>Last changed at ${date.toLocaleString("en-us", {day: "2-digit", month: "2-digit", year: "numeric"})}</span>
           <span>${post.id}</span>
         </div>`

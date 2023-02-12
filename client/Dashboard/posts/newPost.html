@@ -6,11 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New post</title>
     <link rel="stylesheet" href="/style.css">
-    <script src="/dashboard/posts/newPost.js"></script>
+    <script src="/dashboard/posts/newPost.js" defer></script>
   </head>
   <body>
-    <h1>
-      New post
-    </h1>
+    <form id="newPostForm">
+      <h1>
+        New post
+      </h1>
+      <input type="text" placeholder="Title" id="newPostTitle">
+      <input type="file" id="newPostTitleImage" hidden>
+      <button id="newPostTitleImageButton">Title image</button>
+      <textarea placeholder="Text" id="newPostText"></textarea>
+      <input type="file" id="newPostImages" multiple hidden>
+      <button id="newPostImagesButton">Image</button>
+      <input type="submit" value="Add post">
+    </form>
   </body>
 </html>

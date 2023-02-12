@@ -313,6 +313,19 @@ article a {
   width: 30%;
 }
 
+#postList div span a {
+  color: black;
+}
+
+#newPostLink {
+  background-color: #ddd;
+  color: black;
+  padding: 8px;
+  margin: 10px;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
 .comment {
   padding: 10px;
   margin: 5px;
@@ -367,4 +380,36 @@ article a {
 
 .commentForm input[type="submit"]:hover {
   background-color: #ddd;
+}
+
+#newPostForm {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+#newPostForm *:not(h1) {
+  border: 0;
+  outline: 0;
+  width: min(400px, 100%);
+  padding: 10px;
+  background-color: #eee;
+  border-radius: 5px;
+}
+
+#newPostForm h1 {
+  margin-bottom: 30px;
+}
+
+#newPostForm :is(button, input[type="submit"]) {
+  width: min(420px, 100%);
+  cursor: pointer;
+}
+
+#newPostForm textarea {
+  resize: none;
+  height: 300px;
 }

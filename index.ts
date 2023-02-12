@@ -134,7 +134,8 @@ app.get("/getPost/:postID", async (req, res) => {
         orderBy: {
           lastChange: "desc"
         }
-      }
+      },
+      images: true
     }
   })
   res.json(post)
@@ -148,7 +149,10 @@ app.get("/getNewestPosts", async (req, res) => {
       orderBy: {
         lastChange: "desc"
       },
-      take: count
+      take: count,
+      include: {
+        images: true
+      }
     })
     res.json(posts)
   }

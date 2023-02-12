@@ -4,6 +4,7 @@ interface post {
   text: string
   id: string
   comments: comment[]
+  images: image[]
 }
 
 interface comment {
@@ -37,4 +38,11 @@ interface blogData {
   coverImage: string
   aboutTitle: string
   aboutMe: string
+}
+
+interface image {
+  id: string
+  alt: string
+  type: string
+  postID: string
 }

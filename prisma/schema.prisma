@@ -13,6 +13,7 @@ model post {
   text String @db.LongText
   lastChange DateTime @updatedAt @default(now())
   comments Comment[]
+  images Image[]
 }
 
 model User {
@@ -42,4 +43,12 @@ model BlogData {
   coverImage String
   aboutTitle String
   aboutMe String @db.LongText
+}
+
+model Image {
+  id   String @id @default(uuid())
+  alt String
+  type String
+  post post @relation(fields: [postID], references: [id])
+  postID String
 }
