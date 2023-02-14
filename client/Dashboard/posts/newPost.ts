@@ -17,3 +17,11 @@ newPostTitleImageButton.addEventListener("click", () => {
 newPostImagesButton.addEventListener("click", () => {
   newPostImages.click()
 })
+
+newPostTitleImage.addEventListener("change", () => {
+  newPostTitleImageButton.innerText = `${newPostTitleImage.files![0].name} selected`
+})
+
+newPostImages.addEventListener("change", () => {
+  newPostImagesButton.innerText = `${newPostImages.files?.length} ${newPostImages.files!.length>1?"Images":"Image"} selected`
+})
